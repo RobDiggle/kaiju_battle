@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kaiju Battle</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #bdbdbd;
+            font-family: Arial, sans-serif;
+            color: #111;
+        }
+
+        .page {
+            width: 100%;
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        h1 {
+            font-size: 3.6rem;
+            margin: 0 0 12px 0;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            text-shadow:
+                2px 2px 0 #000,
+                4px 4px 0 rgba(0,0,0,0.35);
+        }
+
+        .intro {
+            max-width: 900px;
+            margin: 0 auto 35px auto;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Music bar – spaced out more */
+        .music {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 50px auto 60px auto; /* MORE SPACE */
+            max-width: 900px;
+            padding: 18px 20px;
+            border: 2px solid rgba(0,0,0,0.25);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .music button {
+            padding: 12px 18px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .battlefield {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 55px;
+            align-items: flex-start;
+            margin-top: 10px;
+        }
+
+        .kaiju {
+            width: 280px;
+        }
+
+        .kaiju img {
+            width: 280px;
+            height: 380px;
+            object-fit: cover;
+            border: 4px solid #222;
+            background-color: #000;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+        }
+
+        .kaiju-name {
+            margin-top: 12px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+    <div class="page">
+        <h1>KAIJU BATTLE</h1>
+
+        <div class="intro">
+            In a world pushed to the brink of annihilation, four titans emerge to settle an ancient score.
+            Cities tremble, skies darken, and only one monster will stand victorious when the dust clears.
+            Choose wisely — the fate of everything rests on this battle.
+        </div>
+
+        <div class="explanation">
+            In this game you will pick a Kaiju monster and battle an opposing player. Each of the Kaiju below has an ATTACK LEVEL, HEALTH, and a SPECIAL move.
+        </div>
+
+<form method="POST" action="{{ url_for('battle_game') }}">
+  <label>Player 1</label>
+  <select name="player_name">
+    {% for name in kaiju_list %}
+      <option value="{{ name }}">{{ name }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Player 2</label>
+  <select name="enemy_name">
+    {% for name in kaiju_list %}
+      <option value="{{ name }}">{{ name }}</option>
+    {% endfor %}
+  </select>
+
+  <button type="submit">Start Battle</button>
+</form>
+
+
+
+
+        <div class="battlefield">
+            <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/godzilla.jpg') }}" alt="Godzilla">
+                <div class="kaiju-name">Godzilla</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='godzilla') }}">Godzilla information</a>
+            </div>
+
+            <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/gigan.jpg') }}" alt="Gigan">
+                <div class="kaiju-name">Gigan</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='gigan') }}">Gigan information</a>
+            </div>
+
+            <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/king_kong.jpg') }}" alt="King Kong">
+                <div class="kaiju-name">King Kong</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='kong') }}">Kong information</a>
+            </div>
+
+            <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/king_ghidorah.jpg') }}" alt="King Ghidorah">
+                <div class="kaiju-name">King Ghidorah</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='ghidorah') }}">Ghidorah information</a>
+            </div>
+
+            <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/anguirus.jpg') }}" alt="Anguirus">
+                <div class="kaiju-name">Anguirus</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='anguirus') }}">Anguirus information</a>
+            </div>
+
+            <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/megalon.jpg') }}" alt="Megalon">
+                <div class="kaiju-name">Megalon</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='megalon') }}">Megalon information</a>
+            </div>
+
+                        <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/rodan.jpg') }}" alt="Rodan">
+                <div class="kaiju-name">Rodan</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='rodan') }}">Rodan information</a>
+            </div>
+
+                        <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/mechagodzilla.jpg') }}" alt="mechagodzilla">
+                <div class="kaiju-name">Mechagodzilla</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='mechagodzilla') }}">Mechagodzilla information</a>
+            </div>
+
+                                                <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/gamera.jpg') }}" alt="gamera">
+                <div class="kaiju-name">Gamera</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='mechagodzilla') }}">Gamera information</a>
+            </div>
+
+                                    <div class="kaiju">
+                <img src="{{ url_for('static', filename='img/mothra.jpg') }}" alt="mothra">
+                <div class="kaiju-name">Mothra</div>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='mothra') }}">Mothra information</a>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+</body>
+</html>
