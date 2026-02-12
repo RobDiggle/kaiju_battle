@@ -5,6 +5,7 @@
     <title>Kaiju Battle</title>
 
     <style>
+        
         body {
             margin: 0;
             padding: 0;
@@ -18,6 +19,26 @@
             text-align: center;
             padding-top: 40px;
         }
+        /* center text only */
+.page h1,
+.intro,
+.explanation{
+  max-width: 700px;
+  margin: 0 auto 16px auto;
+  text-align: center;
+}
+
+
+/* force grid + cards back to normal */
+.kaiju-grid{
+  display:flex;
+  justify-content:space-between;
+}
+
+.kaiju{
+  text-align:left;
+}
+
 
         h1 {
             font-size: 3.6rem;
@@ -84,23 +105,105 @@
             font-weight: bold;
             letter-spacing: 1px;
         }
+        .navbar{
+  background:#111;
+  color:#fff;
+  border-bottom:2px solid #000;
+}
+
+.navbar{
+  background:#3a3a3a;   
+  color:#fff;
+  border-bottom:2px solid #2a2a2a;
+  margin-bottom: 40px;
+
+}
+
+.nav-inner{
+  max-width:100%;
+  padding:12px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.nav-title{
+  font-size:1.4rem;
+  letter-spacing:3px;
+  font-weight:800;
+}
+
+.nav-links{
+  margin-left:auto;
+}
+
+.nav-links a{
+  color:#fff;
+  text-decoration:none;
+  margin-left:22px;
+  font-weight:600;
+}
+.text-row{
+  max-width: 900px;
+  margin: 20px auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.text-col{
+  flex: 1;
+  text-align: center;
+  font-family: inherit;   /* title untouched */
+  line-height: 1.5;
+}
+
+.divider{
+  width: 2px;
+  background: #000;
+  margin: 0 24px;
+}
+
+
+
+
     </style>
 </head>
+<script src="{{ url_for('static', filename='js/sound_effects.js') }}"></script>
+
 <body>
 
-
-
     <div class="page">
+        <nav class="navbar">
+  <div class="nav-inner">
+    <div class="nav-title">KAIJU BATTLE</div>
+    <div class="nav-links">
+      <a href="{{ url_for('about_game_page') }}">About the game</a>
+      <a href="{{ url_for('battle_game') }}">About the creator</a>
+    </div>
+  </div>
+</nav>
         <h1>KAIJU BATTLE</h1>
 
-        <div class="intro">
-            In a world pushed to the brink of annihilation, four titans emerge to settle an ancient score.
-            Cities tremble, skies darken, and only one monster will stand victorious when the dust clears.
-            Choose wisely — the fate of everything rests on this battle.
-        </div>
+<div class="text-row">
+  <div class="text-col intro">
+    In a world pushed to the brink of annihilation, ten Kaiju emerge to settle an ancient score. 
+    Cities tremble, skies darken, and only one monster will stand victorious when the dust clears. 
+    Choose wisely — the fate of everything rests on this battle.
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="text-col explanation">
+    In this game you will pick a Kaiju monster and battle an opposing player. 
+    Each of the Kaiju below has an ATTACK LEVEL, HEALTH, and a SPECIAL move. 
+    In alternating turns two players can ATTACK, DEFEND or employ a SPECIAL move until victory is achieved.
+     Click on information to see the relative stats of any of the playable Kaiju characters and then choose your Kaiju to begin the battle!
+  </div>
+</div>
 
         <div class="explanation">
-            In this game you will pick a Kaiju monster and battle an opposing player. Each of the Kaiju below has an ATTACK LEVEL, HEALTH, and a SPECIAL move.
+           Click on information to see the relative stats of any of the playable 
+           Kaiju characters and then choose your Kaiju to begin the battle!
         </div>
 
 <form method="POST" action="{{ url_for('battle_game') }}">
@@ -120,69 +223,78 @@
 
   <button type="submit">Start Battle</button>
 </form>
-
-
-
-
         <div class="battlefield">
             <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/godzilla.jpg') }}" alt="Godzilla">
                 <div class="kaiju-name">Godzilla</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='godzilla') }}">Godzilla information</a>
+                <button type="button" onclick="play_sound_effects('godzilla_sound.mp3')">Roar</button>
             </div>
 
             <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/gigan.jpg') }}" alt="Gigan">
                 <div class="kaiju-name">Gigan</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='gigan') }}">Gigan information</a>
+                <button type="button" onclick="play_sound_effects('gigan_sound.mp3')">Screech</button>
             </div>
 
             <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/king_kong.jpg') }}" alt="King Kong">
                 <div class="kaiju-name">King Kong</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='kong') }}">Kong information</a>
+                <button type="button" onclick="play_sound_effects('king_kong_sound.mp3')">Growl</button>
             </div>
 
             <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/king_ghidorah.jpg') }}" alt="King Ghidorah">
                 <div class="kaiju-name">King Ghidorah</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='ghidorah') }}">Ghidorah information</a>
+                <button type="button" onclick="play_sound_effects('king_ghidorah_sound.mp3')">Screech</button>
             </div>
 
             <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/anguirus.jpg') }}" alt="Anguirus">
                 <div class="kaiju-name">Anguirus</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='anguirus') }}">Anguirus information</a>
+                <button type="button" onclick="play_sound_effects('anguirus_sound.mp3')">Roar</button>
+
             </div>
 
             <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/megalon.jpg') }}" alt="Megalon">
                 <div class="kaiju-name">Megalon</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='megalon') }}">Megalon information</a>
+                <button type="button" onclick="play_sound_effects('megalon_sound.mp3')">Growl</button>
             </div>
 
                         <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/rodan.jpg') }}" alt="Rodan">
                 <div class="kaiju-name">Rodan</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='rodan') }}">Rodan information</a>
+                <button type="button" onclick="play_sound_effects('rodan_sound.mp3')">Screech</button>
+
             </div>
 
                         <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/mechagodzilla.jpg') }}" alt="mechagodzilla">
                 <div class="kaiju-name">Mechagodzilla</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='mechagodzilla') }}">Mechagodzilla information</a>
+                <button type="button" onclick="play_sound_effects('mechagodzilla_sound.mp3')">Screech</button>
             </div>
 
                                                 <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/gamera.jpg') }}" alt="gamera">
                 <div class="kaiju-name">Gamera</div>
-                <a href="{{ url_for('kaiju_info_pages', kaiju_name='mechagodzilla') }}">Gamera information</a>
+                <a href="{{ url_for('kaiju_info_pages', kaiju_name='gamera') }}">Gamera information</a>
+                <button type="button" onclick="play_sound_effects('gamera_sound.mp3')">Roar</button>
             </div>
 
                                     <div class="kaiju">
                 <img src="{{ url_for('static', filename='img/mothra.jpg') }}" alt="mothra">
                 <div class="kaiju-name">Mothra</div>
                 <a href="{{ url_for('kaiju_info_pages', kaiju_name='mothra') }}">Mothra information</a>
+                <button type="button" onclick="play_sound_effects('mothra_sound.mp3')">Cry</button>
+
             </div>
 
 

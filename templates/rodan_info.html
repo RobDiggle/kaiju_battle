@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kaiju Battle</title>
+
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#bdbdbd;
+    font-family:Arial, sans-serif;
+    color:#111;
+}
+
+.page{
+    width:100%;
+    text-align:center;
+    padding-top:40px;
+}
+
+h1{
+    font-size:3.6rem;
+    margin:0 0 12px 0;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    text-shadow:2px 2px 0 #000,4px 4px 0 rgba(0,0,0,.35);
+}
+
+.battlefield{
+    display:flex;
+    justify-content:center;
+    margin-top:20px;
+}
+
+.kaiju{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width:420px;
+}
+
+.kaiju img{
+    width:280px;
+    height:380px;
+    object-fit:cover;
+    border:4px solid #222;
+    background:#000;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.kaiju-name{
+    margin:12px 0 18px;
+    font-size:1.25rem;
+    font-weight:bold;
+    letter-spacing:1px;
+}
+
+/* STAT CARD */
+.card{
+    width:420px;
+    background:#e9e9e9;
+    border:1px solid #8c8c8c;
+    box-shadow:0 6px 16px rgba(0,0,0,.25);
+    padding:18px 18px 14px;
+}
+
+.card-title{
+    margin:0 0 12px;
+    font-size:20px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    text-align:center;
+}
+
+.card-grid{
+    display:grid;
+    gap:8px;
+    margin-bottom:14px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    border-bottom:1px solid #b9b9b9;
+    padding-bottom:6px;
+}
+
+.label{
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:.6px;
+}
+
+.value{
+    font-size:12px;
+}
+
+.stats{
+    display:grid;
+    gap:10px;
+    margin:10px 0 14px;
+}
+
+.stat{
+    display:grid;
+    grid-template-columns:70px 1fr 36px;
+    align-items:center;
+    gap:10px;
+}
+
+.stat-name{
+    font-weight:700;
+    font-size:12px;
+    text-transform:uppercase;
+}
+
+.stat-bar{
+    height:10px;
+    background:#cfcfcf;
+    border:1px solid #7a7a7a;
+}
+
+.fill{
+    height:100%;
+    background:#111;
+}
+
+.stat-val{
+    text-align:right;
+    font-weight:700;
+    font-size:12px;
+}
+
+.special{
+    display:flex;
+    justify-content:space-between;
+    border-top:1px solid #8c8c8c;
+    padding-top:10px;
+}
+
+.special-label{
+    font-weight:700;
+    font-size:12px;
+    text-transform:uppercase;
+}
+
+.special-value{
+    font-weight:800;
+    font-size:13px;
+    text-transform:uppercase;
+}
+</style>
+</head>
+
+<body>
+
+<a href="{{ url_for('home_page') }}">Return to Homepage</a>
+
+<div class="page">
+    <h1>Rodan</h1>
+
+    <div class="battlefield">
+        <div class="kaiju">
+            <img src="{{ url_for('static', filename='img/rodan.jpg') }}" alt="rodan">
+            <div class="card">
+                <h2 class="card-title">Stats</h2>
+                <div class="card-grid">
+                    <div class="row"><span class="label">Height</span><span class="value">~50 m (164 ft)</span></div>
+                    <div class="row"><span class="label">Weight</span><span class="value">~15,000 tons</span></div>
+                    <div class="row"><span class="label">Era</span><span class="value">Shōwa</span></div>
+                    <div class="row"><span class="label">First Appearance</span><span class="value">Rodan (1956)</span></div>
+                    <div class="row"><span class="label">Origin</span><span class="value">Prehistoric Pteranodon awakened by mining</span></div>
+                    <div class="row"><span class="label">Species</span><span class="value">Giant Pteranodon</span></div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-name">Health</div>
+                        <div class="stat-bar"><div class="fill" style="width:70%"></div></div>
+                        <div class="stat-val">70</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-name">Attack</div>
+                        <div class="stat-bar"><div class="fill" style="width:15%"></div></div>
+                        <div class="stat-val">15</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-name">Defense</div>
+                        <div class="stat-bar"><div class="fill" style="width:20%"></div></div>
+                        <div class="stat-val">20</div>
+                    </div>
+                </div>
+
+                <div class="special">
+                    <span class="special-label">Special</span>
+                    <span class="special-value">Giant Claw</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

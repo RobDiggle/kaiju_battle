@@ -6,35 +6,31 @@ class Kaiju:
         self.health_level = health_level
         self.attack_power = attack_power
 
-    # 3.1 PLAYER 1 MOVES
+# 3.1 PLAYER 1 MOVES
     def attack(self, enemy):
         enemy.health_level -= self.attack_power
         return [
-            f"{self.name} does {self.attack_power} damage to {enemy.name}!",
-            f"{enemy.name} has {enemy.health_level} health left."
+            f"{self.name} does {self.attack_power} damage to {enemy.name}!\n",
         ]
 
     def defend(self):
         self.health_level += 20
         return [
             f"{self.name} boosts health by 20.",
-            f"{self.name} now has {self.health_level} health."
         ]
 
-    # 3.2 PLAYER 2 MOVES
+# 3.2 PLAYER 2 MOVES
     def attack_2(self, player):
         player.health_level -= self.attack_power
         return [
-            f"{self.name} does {self.attack_power} damage to {player.name}!",
-            f"{player.name} has {player.health_level} health left."
+            f"{self.name} does {self.attack_power} damage to {player.name}!\n",
         ]
 
     def defend_2(self):
         self.health_level += 20
         return [
-            f"{self.name} boosts health by 20.",
-            f"{self.name} now has {self.health_level} health."
-        ]
+            f"{self.name} boosts health by 20."
+                            ]
 
 kaiju_list = {
     "Godzilla": Kaiju("Godzilla", 70, 25),
@@ -47,20 +43,21 @@ kaiju_list = {
     "Mechagodzilla" : Kaiju("Mechagodzilla", 80, 20),
     "Mothra" : Kaiju("Mothra", 40, 40),
     "Gamera" : Kaiju("Gamera", 80, 20)
-
-
 }
 
-
-# 2. ONCE THE PAGE LOADS THIS BECOMES THE FIRST SESSION AND THE GAME IS READY TO START
+# ============================================================================
+# 2. Function initializing the session. 
 # The bottom of the init_session has the WIN CONDITION logic.
+# ============================================================================
+
 
 from io import StringIO
 from contextlib import redirect_stdout
 
 def init_session(session):
     if "player_health" not in session:
-        # player_name and enemy_name must already be set by the route
+# player_name and enemy_name must already be set by the route. 
+# This 'redefining' of names is only really relevant in the rebuild_kaiju function down below
         player = kaiju_list[session["player_name"]]
         enemy = kaiju_list[session["enemy_name"]]
 
@@ -69,9 +66,10 @@ def init_session(session):
         session["player_attack"] = player.attack_power
         session["enemy_attack"] = enemy.attack_power
 
-        session["turn"] = "player"
+
+#Game start log lines - standard BATTLE BEGINS and dynamic opening lines based on player character.
         session["log"] = ["BATTLE BEGINS"]
-        #Game start log lines
+
         if session["player_name"].lower() == "godzilla" and session["enemy_name"].lower()!= "godzilla":
             session["log"].append(f"{session["player_name"]} lumbers forward, he sees {session["enemy_name"]}, the battle starts!\n")
         if session["player_name"].lower() == "gigan" and session["enemy_name"].lower() != "gigan":
@@ -93,16 +91,25 @@ def init_session(session):
         if session["player_name"].lower() == "gamera" and session["enemy_name"].lower()!= "gamera":
             session["log"].append(f"{session["player_name"]} lumbers forward, he sees {session["enemy_name"]}, the battle starts!\n")
 
-
-
-        # Game conclusion log lines
+# Game conclusion log lines
     if session["player_health"] >= 0 and session["enemy_health"] <=0:
-        session["log"].append(f"\n{session["player_name"]} wins against {session["enemy_name"]},\nPLAYER 1 WINS \n BATTLE CONCLUDES ")
-    if session["enemy_health"] >= 0 and session["player_health"] <=0:
-        session["log"].append(f"\n{session["enemy_name"]} wins against {session["player_name"]},\nPLAYER 2 WINS \n BATTLE CONCLUDES ")
+        session["log"].append(f"\n{session["player_name"]} wins against {session["enemy_name"]},\nPLAYER 1 WINS. ")
+        session["log"].append("\nBATTLE CONCLUDES")
 
-# Every time state changes this updates it:
-# REBUILD OBJECTS FROM SESSION SNAPSHOT
+    if session["enemy_health"] >= 0 and session["player_health"] <=0:
+        session["log"].append(f"\n{session["enemy_name"]} wins against {session["player_name"]},\nPLAYER 2 WINS. ")
+        session["log"].append("\nBATTLE CONCLUDES")
+
+# Puts the init session function into a variable
+init_game_state = init_session
+
+# ============================================================================
+# 3. The following 3 variables allow the alteration of state in the game which 
+# makes turn based combat possible.
+# ============================================================================
+
+# This function rebuilds the Kaiju objects in a new snapshot
+# with changes based on the altered game state.
 
 def rebuild(session):
     player = Kaiju(
@@ -117,10 +124,19 @@ def rebuild(session):
     )
     return player, enemy
 
+rebuild_kaiju = rebuild
 
-# 3. SINGLE TURN EXECUTION
+# After the state is mutated by the execution of a turn (done below in run_turn),
+# this function saves the mutated state.
 
-def run_turn(player, enemy, move, turn):
+def persist(session, player, enemy):
+    session["player_health"] = player.health_level
+    session["enemy_health"] = enemy.health_level
+
+
+# Each turn operates through the use of this function
+
+def run_turn(player, enemy, move):
     if move == "attack":
         return player.attack(enemy)
     elif move == "defend":
@@ -131,15 +147,4 @@ def run_turn(player, enemy, move, turn):
         return enemy.defend()
     return []
 
-
-# SAVE MUTATED STATE BACK TO SESSION
-
-def persist(session, player, enemy):
-    session["player_health"] = player.health_level
-    session["enemy_health"] = enemy.health_level
-
-
-
-init_game_state = init_session
-rebuild_kaiju = rebuild
 persist_state = persist
