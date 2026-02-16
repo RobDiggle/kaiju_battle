@@ -1,4 +1,6 @@
-#KAIJU CLASS DEFINITION
+# ============================================================================
+#KAIJU CLASS - Defining Kaiju / Listing Kaiju as playable characters
+# ============================================================================
 
 class Kaiju:
     def __init__(self, name, health_level, attack_power):

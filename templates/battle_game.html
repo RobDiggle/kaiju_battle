@@ -30,8 +30,8 @@
                 4px 4px 0 rgba(0,0,0,0.35);
         }
 
-        .intro {
-            max-width: 900px;
+        .intro-wrap {
+            max-width: 1900px;
             margin: 0 auto 35px auto;
             font-size: 1.1rem;
             line-height: 1.5;
@@ -44,7 +44,7 @@
             align-items: center;
             gap: 20px;
             margin: 50px auto 60px auto; /* MORE SPACE */
-            max-width: 900px;
+            max-width: 800px;
             padding: 18px 20px;
             border: 2px solid rgba(0,0,0,0.25);
             background: rgba(255,255,255,0.25);
@@ -135,7 +135,7 @@
   <div class="nav-inner">
     <div class="nav-title">KAIJU BATTLE</div>
     <div class="nav-links">
-      <a href="{{ url_for('home_page') }}">Home</a>
+      <a href="{{ url_for('home_page') }}">Home (Click here to return to the homepage when the game is finished)</a>
  
     </div>
   </div>
@@ -146,7 +146,7 @@
 
     <h1>KAIJU BATTLE</h1>
 
-    <div class="intro">
+    <div class="intro-wrap">
 
     </div>
 
@@ -170,10 +170,12 @@
 
     <div class="controls">
         <form method="POST">
-            <button type="submit" name="move" value="attack">ATTACK</button>
-            <button type="submit" name="move" value="defend">DEFEND</button>
+            <button type="submit" name="move" value="attack" id="attackBtn">ATTACK</button>
+            <button type="submit" name="move" value="defend" id="defendBtn">DEFEND</button>
         </form>
     </div>
+
+
 
     <div class="controls">
         <form method="POST">
@@ -194,9 +196,6 @@
     <p>{{ line }}</p>
   {% endfor %}
 </div>
-
-
-
 
 <script src="{{ url_for('static', filename='js/sound_effects.js') }}"></script>
 </body>

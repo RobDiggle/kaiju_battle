@@ -90,4 +90,12 @@ def about_game_page():
         kaiju_list=kaiju_list
     )
 
+@app.route("/about_creator", methods=["GET", "POST"])
+def about_creator_page():
+        return render_template(
+        "about_creator.html",
+        Kaiju=Kaiju,
+        kaiju_list=kaiju_list
+    )
+
 
