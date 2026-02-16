@@ -170,8 +170,33 @@
 
     <div class="controls">
         <form method="POST">
-            <button type="submit" name="move" value="attack" id="attackBtn">ATTACK</button>
-            <button type="submit" name="move" value="defend" id="defendBtn">DEFEND</button>
+           <button type="submit"
+        name="move"
+        value="attack"
+        data-kaiju="{{ player.name }}"
+        data-move="attack"
+        onclick="play_sound_effects('godzilla_sound.mp3')">
+        ATTACK
+        </button>
+
+    <button type="submit"
+            name="move"
+            value="defend"
+            data-kaiju="{{ player.name }}"
+            data-move="defend"
+            onclick="play_sound_effects(this)">
+    DEFEND
+    </button>
+
+    <button type="submit"
+            name="move"
+            value="special"
+            data-kaiju="{{ player.name }}"
+            data-move="special"
+            onclick="play_sound_effects(this)">
+    SPECIAL
+    </button>
+
         </form>
     </div>
 
@@ -181,6 +206,8 @@
         <form method="POST">
             <button type="submit" name="move" value="attack_2">ATTACK 2</button>
             <button type="submit" name="move" value="defend_2">DEFEND 2</button>
+            <button type="submit" name="move" value="special_2" id="specialBtn">SPECIAL 2</button>
+
         </form>
     </div>
  
@@ -197,6 +224,8 @@
   {% endfor %}
 </div>
 
+<audio id="sfx" preload="auto"></audio>
 <script src="{{ url_for('static', filename='js/sound_effects.js') }}"></script>
+
 </body>
 </html>
